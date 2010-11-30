@@ -1,0 +1,23 @@
+<properties>
+	<reset/>
+	<property>
+		<name>ping timeout</name>
+		<value>120000</value>
+	</property>
+	<property>
+		<name>auto rejoin</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>accept invite</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>high load</name>
+		<value>2.0</value>
+	</property>
+	<property>
+		<name>low load</name>
+		<value>1.0</value>
+	</property>
+</properties>
