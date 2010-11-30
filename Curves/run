@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+$0=~/^(.+[\\\/])[^\\\/]+[\\\/]*$/;
+my $root = $1 || "./";
+my $pidfile = $root . "curves.pid";
+my $configfile = $root . "config.xml";
+my $logconfig = $root . "log4j.xml";
+$configfile = $ARGV[0] if (scalar @ARGV >= 1);
+$logconfig = $ARGV[1] if (scalar @ARGV >= 2);
+
+if ($configfile eq "stop") {
+	open(PID, $pidfile) or die "pid file not found\n";
+	if (my $line = <PID>){
+		# the PID of the actual java script is incremented by one
+		$line++;
+		system("kill -9 $line");
+		close(PID);
+		unlink($pidfile);
+		exit();
+	}
+}
+
+open(CONFIG, $configfile);
+my $config = "";
+my $line;
+while ($line = <CONFIG>){
+	chomp($line);
+	$config .= $line;
+}
+
+my $home, my $main, my $logfile, my $javaexec;
+
+if ($config =~ /<config>.*?<runtime>.*?<home>(.*?)<\/home>.*?<\/runtime>.*?<\/config>/){
+	$home = $1;
+}
+
+if ($config =~ /<config>.*?<runtime>.*?<main>(.*?)<\/main>.*?<\/runtime>.*?<\/config>/){
+	$main = $1;
+}
+
+if ($config =~ /<config>.*?<runtime>.*?<javahome>(.*?)<\/javahome>.*?<\/runtime>.*?<\/config>/){
+	$javaexec = $1 . "/bin/java";
+}
+
+
+my @libs = glob($home . "/lib/*.jar");
+foreach my $lib (@libs){
+	$lib =~ s/^\./$home/;
+}
+
+my $classpath = "$home:$home/bin:" . join(":", @libs);
+
+
+my $exe = "$javaexec -classpath $classpath $main $configfile $logconfig & echo $$ > $pidfile";
+
+exec($exe);

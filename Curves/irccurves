@@ -1,0 +1,36 @@
+#! /bin/sh
+### init script for IRC Curves Bot as a daemon. Use with update-rc.d
+### BEGIN INIT INFO
+# Provides: irc curves
+# Required-Start: $all
+# Required-Stop: $all
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+### END INIT INFO
+
+NAME=irccurves
+CURVES=Curves-IRC-Bot
+HOME=/home/guo/curves
+
+case "$1" in
+start)
+$HOME/Curves/run
+echo "$CURVES online."
+;;
+stop)
+$HOME/Curves/run stop
+echo "$CURVES offline."
+;;
+restart|force-reload|reload)
+$HOME/Curves/run stop
+$HOME/Curves/run
+echo "$CURVES restarted."
+;;
+*)
+N=/etc/init.d/$NAME
+echo "Usage: $N {start|stop|restart|force-reload}" >&2
+exit 1
+;;
+
+esac
+exit 0
