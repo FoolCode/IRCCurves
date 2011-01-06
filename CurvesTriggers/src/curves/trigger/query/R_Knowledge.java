@@ -84,7 +84,7 @@ public class R_Knowledge implements IReadHandler {
 
 	public boolean reactsTo(IMessage message, Bot bot, Hashtable<String, Object> storage) {
 		String msg = ((PrivMsg) message).getMessage();
-		return (msg.startsWith("!?")) || (msg.endsWith("?") && msg.length() > 10);
+		return (msg.startsWith("!?")); // || (msg.endsWith("?") && msg.length() > 10);
 	}
 	
 	public boolean messageType(Class<IMessage> messageType) {
