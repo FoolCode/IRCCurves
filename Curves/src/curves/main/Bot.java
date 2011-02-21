@@ -131,6 +131,7 @@ public class Bot extends Thread {
 						+ profile.getNickserv()));
 
 			for (Channel channel : getProfile().getChannels()) {
+				send(new PrivMsg("ChanServ", "UNBAN " + channel));
 				send(new JoinMsg(channel));
 				send(new ModeMsg(channel, "+v", getProfile().getNickname()));
 			}
