@@ -21,6 +21,7 @@ public class W_PrivMsg implements IReadHandler, IWriteHandler {
 
 	public void process(IMessage message, Bot bot, Hashtable<String, Object> storage) {
 		PrivMsg msg = (PrivMsg) message;
+		if (msg.getTarget().equals("NickServ")) return;
 		try {
 			PreparedStatement ps = (PreparedStatement) bot.getDB()
 					.prepareStatement(
