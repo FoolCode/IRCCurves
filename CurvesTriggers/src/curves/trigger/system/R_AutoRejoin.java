@@ -8,6 +8,7 @@ import curves.main.Bot;
 import curves.message.IMessage;
 import curves.message.JoinMsg;
 import curves.message.KickMsg;
+import curves.message.PrivMsg;
 import curves.trigger.IReadHandler;
 
 /**
@@ -28,13 +29,20 @@ public class R_AutoRejoin implements IReadHandler {
 			} catch (InterruptedException e) {
 				log.error("Sleep failed.", e);
 			}
+			bot.send(new PrivMsg("ChanServ", "UNBAN " + kick.getChannel()));
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				log.error("Sleep failed.", e);
+			}
 			bot.send(new JoinMsg(kick.getChannel()));
+			bot.send(new KickMsg(kick.getChannel(), "revenge", kick.getUser()));
 		}
 	}
 
 	public boolean reactsTo(IMessage message, Bot bot,
 			Hashtable<String, Object> storage) {
-		return ((KickMsg) message).getTarget().equals(
+		return ((KickMsg) message).getTarget().getNickname().equals(
 				bot.getProfile().getNickname())
 				&& ((String) storage.get("auto rejoin")).equals("true");
 	}
