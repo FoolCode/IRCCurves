@@ -1,0 +1,106 @@
+<config>
+	<runtime>
+		<!-- home folder of curves -->
+		<home>/usr/local/irccurves</home>
+		<main>curves.main.Main</main>
+		<!-- home folder of java 1.6 -->
+		<javahome>/usr/local/java</javahome>
+	</runtime>
+
+	<bot>
+		<!-- irc server url -->
+		<server>irc.irchighway.net</server>
+		<!-- irc server port -->
+		<port>6667</port>
+		<!-- nick name -->
+		<nickname>irccurves</nickname>
+		<!-- host name -->
+		<hostname>irccurves.sourceforge.net</hostname>
+		<!-- server name -->
+		<servername>IRCCURVES</servername>
+		<!--  real name -->
+		<realname>curves is great</realname>
+		<!-- nickserv password -->
+		<nickserv>password</nickserv>
+		<!-- interval in milliseconds at which periodic tasks are triggered -->
+		<period>5000</period>
+		<!--
+			data base connection. The database has to be prepared using the sql files
+			found in the CurvesTriggers packages
+		-->
+		<database>
+			<url>jdbc:mysql://localhost:3306/curves?useUnicode=true&amp;characterEncoding=UTF8
+			</url>
+			<username>curves</username>
+			<password>password</password>
+		</database>
+		<!-- channels to join on start -->
+		<channels>
+			<channel>#curvestown</channel>
+			<channel>#curvesland</channel>
+		</channels>
+		<!--
+			where to find the trigger packages and their config files
+			critical packages are triggered even when the system is under heavy load
+		-->
+		<listeners>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.system.Index</classname>
+				<properties>/usr/local/irccurves/CurvesTriggers/properties/system.xml
+				</properties>
+				<critical>true</critical>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.record.Index</classname>
+				<critical>true</critical>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.console.Index</classname>
+				<critical>true</critical>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.fileserver.Index</classname>
+				<properties>/usr/local/irccurves/CurvesTriggers/properties/fileserver.xml
+				</properties>
+				<critical>true</critical>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.query.Index</classname>
+				<properties>/usr/local/irccurves/CurvesTriggers/properties/query.xml
+				</properties>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.foolrulez.Index</classname>
+				<properties>/usr/local/irccurves/CurvesTriggers/properties/foolrulez.xml
+				</properties>
+			</index>
+			<index>
+				<classpath>/usr/local/irccurves/CurvesTriggers/bin</classpath>
+				<classname>curves.trigger.mana.Index</classname>
+				<properties>/usr/local/irccurves/CurvesTriggers/properties/mana.xml
+				</properties>
+			</index>
+		</listeners>
+		<!--
+			admins are identified by their nick and hostname
+			only admins can issue "/notice <bot nick> reload triggers" to
+			make irccurves reload triggers at run time.
+		-->
+		<admins>
+			<admin>
+				<nickname>admin1</nickname>
+				<hostname>~host1@host.name</hostname>
+			</admin>
+			<admin>
+				<nickname>admin2</nickname>
+				<hostname>~host2@host.name</hostname>
+			</admin>
+		</admins>
+	</bot>
+</config>
