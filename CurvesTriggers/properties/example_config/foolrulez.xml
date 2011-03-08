@@ -1,0 +1,11 @@
+<properties>
+	<property>
+		<name>main channel</name>
+		<!-- where should those commands work exclusively? -->
+		<value>#curvestown</value>
+	</property>
+	<property>
+		<name>niceboat message</name>
+		<value>You are... everybody's Makoto!</value>
+	</property>
+</properties>

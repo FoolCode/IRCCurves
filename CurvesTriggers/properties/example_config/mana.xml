@@ -1,0 +1,7 @@
+<properties>
+	<property>
+		<name>main channel</name>
+		<!-- limit the game to this channel -->
+		<value>#curvestown</value>
+	</property>
+</properties>

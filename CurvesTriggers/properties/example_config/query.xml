@@ -1,0 +1,12 @@
+<properties>
+	<property>
+		<name>knowledge API user</name>
+		<!-- api key for true knowledge (http://www.trueknowledge.com/) -->
+		<value>api_123</value>
+	</property>
+	<property>
+		<name>knowledge API pass</name>
+		<!-- api password for true knowledge (http://www.trueknowledge.com/) -->
+		<value>password</value>
+	</property>
+</properties>

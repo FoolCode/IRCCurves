@@ -1,0 +1,59 @@
+<properties>
+	<property>
+		<name>main channel</name>
+		<!-- channel in which to serve the files -->
+		<value>#curvestown</value>
+	</property>
+	<property>
+		<name>list message</name>
+		<!-- help message -->
+		<value>hurray downloads!</value>
+	</property>
+	<property>
+		<name>min port</name>
+		<value>7000</value>
+	</property>
+	<property>
+		<name>max port</name>
+		<value>7300</value>
+	</property>
+	<property>
+		<name>buffer size</name>
+		<value>8192</value>
+	</property>
+	<property>
+		<name>server time out</name>
+		<value>60000</value>
+	</property>
+	<property>
+		<name>transfer time out</name>
+		<value>60000</value>
+	</property>
+	<property>
+		<name>bandwidth</name>
+		<value>262144</value>
+	</property>
+	<property>
+		<name>file root</name>
+		<!-- directory where the served files are stored -->
+		<value>/var/www/direct/</value>
+	</property>
+	<property>
+		<name>webirc message</name>
+		<!-- what to say when encountering a web client -->
+		<value>You are using a web client and thus can't download over IRC.</value>
+	</property>
+	<property>
+		<name>parallel send</name>
+		<value>5</value>
+	</property>
+	<property>
+		<name>queue length</name>
+		<value>5</value>
+	</property>
+	<property>
+		<name>file extensions</name>
+		<!-- which file extensions to consider -->
+		<value>.rar|.zip</value>
+	</property>
+</properties>
