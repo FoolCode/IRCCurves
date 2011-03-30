@@ -1,4 +1,4 @@
-package curves.trigger.query;
+package curves.trigger.quote;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

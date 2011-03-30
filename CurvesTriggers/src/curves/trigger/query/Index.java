@@ -18,9 +18,6 @@ public class Index extends ITriggerIndex {
 		list.add(new R_GoogleBlogs());
 		list.add(new R_GoogleWeather());
 		list.add(new R_GoogleFight());
-		list.add(new R_Quote());
-		list.add(new R_Find());
-		list.add(new R_About());
 		list.add(new R_Translate());
 		list.add(new R_Wiki());
 //		list.add(new R_Wikipath());

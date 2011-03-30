@@ -1,4 +1,4 @@
-package curves.trigger.query;
+package curves.trigger.quote;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,20 +13,20 @@ import curves.message.IMessage;
 import curves.message.PrivMsg;
 import curves.trigger.IReadHandler;
 
-public class R_Find implements IReadHandler {
+public class R_About implements IReadHandler {
 	
-	Logger log = Logger.getLogger(R_Find.class);
+	Logger log = Logger.getLogger(R_About.class);
 
 	public void process(IMessage message, Bot bot, Hashtable<String, Object> storage) {
 		try {
 			PrivMsg msg = (PrivMsg) message;
-			String text = ((PrivMsg) message).trailing();
+			String text = msg.getMessage().substring("!about ".length());
 			PreparedStatement ps = (PreparedStatement) bot
 					.getDB()
 					.prepareStatement(
-							"SELECT count(*) AS c FROM messages WHERE MATCH(message, user)"
-									+ " AGAINST(? IN BOOLEAN MODE) AND target = ? AND user != ?"
-									+ " AND substr(message, 1, 1) != '!' AND char_length(message) > 10");
+							"SELECT count(*) AS c FROM messages WHERE"
+									+ " MATCH(message) AGAINST(? IN BOOLEAN MODE) AND target = ?"
+									+ " AND substr(message, 1, 1) != '!' AND user != ? AND char_length(message) > 10");
 			int random = 0;
 			ps.setString(1, text);
 			ps.setString(2, msg.getTarget());
@@ -35,7 +35,7 @@ public class R_Find implements IReadHandler {
 			if (rs.next()) {
 				int count = rs.getInt("c");
 				if (count == 0) {
-					msg.reply(bot, "I didn't find anything containing \""
+					msg.reply(bot, "I didn't find anything said about \""
 							+ text + "\"");
 					return;
 				}
@@ -45,9 +45,10 @@ public class R_Find implements IReadHandler {
 			ps = (PreparedStatement) bot
 					.getDB()
 					.prepareStatement(
-							"SELECT user, message, date_format(time,'%d %b %Y at %H:%i') AS times"
-									+ " FROM messages WHERE MATCH(message, user) AGAINST(? IN BOOLEAN MODE)"
-									+ " AND target = ? AND user != ? AND substr(message, 1, 1) != '!'"
+							"SELECT user, message, date_format(time,'%d %b %Y at %H:%i')"
+									+ " AS times FROM messages WHERE MATCH(message)"
+									+ " AGAINST(? IN BOOLEAN MODE) AND target = ? AND user != ?"
+									+ " AND substr(message, 1, 1) != '!'"
 									+ " AND char_length(message) > 10 LIMIT ?,1");
 			ps.setString(1, text);
 			ps.setString(2, msg.getTarget());
@@ -70,7 +71,7 @@ public class R_Find implements IReadHandler {
 	}
 
 	public boolean reactsTo(IMessage message, Bot bot, Hashtable<String, Object> storage) {
-		return ((PrivMsg) message).getMessage().startsWith("!find ")
+		return ((PrivMsg) message).getMessage().startsWith("!about ")
 				&& ((PrivMsg) message).getTarget().startsWith("#");
 	}
 
