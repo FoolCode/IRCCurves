@@ -24,6 +24,8 @@ public class Index extends ITriggerIndex {
 	}
 
 	public ArrayList<IPeriodicHandler> periodicHandlers() {
+		ArrayList<IPeriodicHandler> list = new ArrayList<IPeriodicHandler>();
+		list.add(new P_Archive());
 		return null;
 	}
 

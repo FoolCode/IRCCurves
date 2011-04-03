@@ -5,7 +5,7 @@
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `message_id` int(11) NOT NULL auto_increment,
-  `target` varchar(64) character set latin1 NOT NULL,
+  `target` varchar(64) character set utf8_unicode_ci NOT NULL,
   `user` varchar(64) collate utf8_unicode_ci NOT NULL,
   `message` varchar(512) collate utf8_unicode_ci NOT NULL,
   `time` datetime NOT NULL,
@@ -15,6 +15,14 @@ CREATE TABLE IF NOT EXISTS `messages` (
   FULLTEXT KEY `text` (`user`,`message`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54692 ;
 
+CREATE TABLE IF NOT EXISTS `messages_archive` (
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
+  `target` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `message` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=ARCHIVE  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Table structure for table `uptime`

@@ -28,7 +28,7 @@ public class R_Find implements IReadHandler {
 							"SELECT count(*) AS c FROM messages WHERE MATCH(message, user)"
 									+ " AGAINST(? IN BOOLEAN MODE) AND target = ? AND user != ?"
 									+ " AND substr(message, 1, 1) != '!' AND char_length(message) > 10"
-									+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )");
+									);
 			int random = 0;
 			ps.setString(1, text);
 			ps.setString(2, msg.getTarget());
@@ -50,7 +50,6 @@ public class R_Find implements IReadHandler {
 							"SELECT user, message, date_format(time,'%d %b %Y at %H:%i') AS times"
 									+ " FROM messages WHERE MATCH(message, user) AGAINST(? IN BOOLEAN MODE)"
 									+ " AND target = ? AND user != ? AND substr(message, 1, 1) != '!'"
-									+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )"
 									+ " AND char_length(message) > 10 LIMIT ?,1"
 								);
 			ps.setString(1, text);
