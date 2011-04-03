@@ -14,10 +14,11 @@ import curves.message.PrivMsg;
 import curves.trigger.IReadHandler;
 
 public class R_Find implements IReadHandler {
-	
+
 	Logger log = Logger.getLogger(R_Find.class);
 
-	public void process(IMessage message, Bot bot, Hashtable<String, Object> storage) {
+	public void process(IMessage message, Bot bot,
+			Hashtable<String, Object> storage) {
 		try {
 			PrivMsg msg = (PrivMsg) message;
 			String text = ((PrivMsg) message).trailing();
@@ -26,7 +27,8 @@ public class R_Find implements IReadHandler {
 					.prepareStatement(
 							"SELECT count(*) AS c FROM messages WHERE MATCH(message, user)"
 									+ " AGAINST(? IN BOOLEAN MODE) AND target = ? AND user != ?"
-									+ " AND substr(message, 1, 1) != '!' AND char_length(message) > 10");
+									+ " AND substr(message, 1, 1) != '!' AND char_length(message) > 10"
+									+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )");
 			int random = 0;
 			ps.setString(1, text);
 			ps.setString(2, msg.getTarget());
@@ -48,7 +50,9 @@ public class R_Find implements IReadHandler {
 							"SELECT user, message, date_format(time,'%d %b %Y at %H:%i') AS times"
 									+ " FROM messages WHERE MATCH(message, user) AGAINST(? IN BOOLEAN MODE)"
 									+ " AND target = ? AND user != ? AND substr(message, 1, 1) != '!'"
-									+ " AND char_length(message) > 10 LIMIT ?,1");
+									+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )"
+									+ " AND char_length(message) > 10 LIMIT ?,1"
+								);
 			ps.setString(1, text);
 			ps.setString(2, msg.getTarget());
 			ps.setString(3, bot.getProfile().getNickname());
@@ -69,7 +73,8 @@ public class R_Find implements IReadHandler {
 		}
 	}
 
-	public boolean reactsTo(IMessage message, Bot bot, Hashtable<String, Object> storage) {
+	public boolean reactsTo(IMessage message, Bot bot,
+			Hashtable<String, Object> storage) {
 		return ((PrivMsg) message).getMessage().startsWith("!find ")
 				&& ((PrivMsg) message).getTarget().startsWith("#");
 	}

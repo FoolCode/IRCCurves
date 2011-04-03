@@ -29,7 +29,8 @@ public class R_Quote implements IReadHandler {
 						.prepareStatement(
 								"SELECT COUNT(*) AS c FROM messages WHERE user=?"
 										+ " AND target = ? AND substr(message, 1, 1) != '!'"
-										+ " AND char_length(message) > 20");
+										+ " AND char_length(message) > 20"
+										+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )");
 				ps.setString(1, somebody);
 
 			} else {
@@ -60,6 +61,7 @@ public class R_Quote implements IReadHandler {
 						"SELECT user, message, date_format(time,'%d %b %Y at %H:%i') AS times"
 								+ " FROM messages WHERE user=? AND target = ?"
 								+ " AND substr(message, 1, 1) != '!'"
+								+ " AND date( time ) > subdate( curdate( ) , INTERVAL 3 month )"
 								+ " AND char_length(message) > 20 LIMIT ?,1");
 				ps.setString(1, somebody);
 			} else {
@@ -68,6 +70,7 @@ public class R_Quote implements IReadHandler {
 						.prepareStatement(
 								"SELECT user, message, date_format(time,'%d %b %Y at %H:%i') AS times"
 										+ " FROM messages WHERE user!=? AND target = ?"
+										+ " AND date( time ) > subdate( curdate( ) , INTERVAL 1 month )"
 										+ " AND substr(message, 1, 1) != '!' AND char_length(message) > 20 LIMIT ?,1");
 				ps.setString(1, bot.getProfile().getNickname());
 			}
