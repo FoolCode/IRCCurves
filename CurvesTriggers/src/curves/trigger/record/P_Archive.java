@@ -17,21 +17,25 @@ public class P_Archive implements IPeriodicHandler {
 
 	public boolean isReady(Bot bot, Hashtable<String, Object> storage) {
 		skip = (skip + 1) % 1440;
-		return skip == 0;
+		return skip == 1;
 	}
 
 	public void process(Bot bot, Hashtable<String, Object> storage) {
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = (PreparedStatement) bot
+			ps = (PreparedStatement) bot
 					.getDB()
 					.prepareStatement(
-							"INSERT INTO messages_archive SELECT * FROM messages" +
-							" WHERE date( time ) < subdate( curdate( ) , INTERVAL 2 month );" +
-							" DELETE FROM messages" +
-							" WHERE date( time ) < subdate( curdate( ) , INTERVAL 2 month );");
+							"INSERT INTO messages_archive SELECT * FROM messages"
+									+ " WHERE date( time ) < subdate( curdate( ) , INTERVAL 2 month );");
+			ps.executeUpdate();
+			ps = (PreparedStatement) bot
+					.getDB()
+					.prepareStatement(
+							"DELETE FROM messages"
+									+ " WHERE date( time ) < subdate( curdate( ) , INTERVAL 2 month );");
 			ps.executeUpdate();
 			ps.close();
-
 		} catch (SQLException e) {
 			log.error("Unable archive messages.", e);
 		}
