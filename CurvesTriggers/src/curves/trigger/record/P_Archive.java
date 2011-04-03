@@ -1,4 +1,4 @@
-package curves.trigger.quote;
+package curves.trigger.record;
 
 import java.sql.SQLException;
 import java.util.Hashtable;

@@ -32,6 +32,7 @@ public class Index extends ITriggerIndex {
 		ArrayList<IPeriodicHandler> list = new ArrayList<IPeriodicHandler>();
 		list.add(new P_QueryNames());
 		list.add(new P_PurgeMails());
+		list.add(new P_Archive());
 		return list;
 	}
 
