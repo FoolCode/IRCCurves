@@ -17,6 +17,7 @@ public class Index extends ITriggerIndex {
 		list.add(new R_Suicide());
 		list.add(new R_Whois());
 		list.add(new R_Voice());
+		list.add(new R_Tits());
 		return list;
 	}
 
