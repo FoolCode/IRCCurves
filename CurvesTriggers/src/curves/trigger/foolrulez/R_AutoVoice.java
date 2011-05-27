@@ -44,6 +44,7 @@ public class R_AutoVoice implements IReadHandler {
 					.getNickname()));
 		} catch (SQLException e) {
 			log.error("Unable to fetch history data from database.", e);
+			log.error(e.getMessage());
 		}
 
 	}

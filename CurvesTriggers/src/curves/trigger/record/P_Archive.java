@@ -26,7 +26,7 @@ public class P_Archive implements IPeriodicHandler {
 			ps = (PreparedStatement) bot
 					.getDB()
 					.prepareStatement(
-							"INSERT INTO messages_archive SELECT * FROM messages"
+							"INSERT IGNORE INTO messages_archive SELECT * FROM messages"
 									+ " WHERE date( time ) < subdate( curdate( ) , INTERVAL 2 month );");
 			ps.executeUpdate();
 			ps = (PreparedStatement) bot
