@@ -38,6 +38,10 @@ public class Bot extends Thread {
 	public Connection getDB() {
 		return database;
 	}
+	
+	public void reloadDB() {
+		database = DatabaseFactory.New();
+	}
 
 	public Profile getProfile() {
 		return profile;

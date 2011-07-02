@@ -1,7 +1,5 @@
 package curves.main;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -64,9 +62,7 @@ public class Main {
 
 				parseChannels(bot, profile);
 				
-				Connection database = null;
-				if (bot.getString("database.url") != null)
-					database = (Connection) DriverManager.getConnection(bot
+				Connection database = DatabaseFactory.New(bot
 							.getString("database.url"), bot
 							.getString("database.username"), bot
 							.getString("database.password"));
@@ -94,8 +90,6 @@ public class Main {
 			}
 		} catch (ConfigurationException e) {
 			log.error("Something is wrong with the configuration", e);
-		} catch (SQLException e) {
-			log.error("Initializing database failed", e);
 		}
 	}
 
