@@ -37,6 +37,8 @@ public class W_PrivMsg implements IReadHandler, IWriteHandler {
 			ps.close();
 		} catch (Exception e) {
 			log.error("Unable to record message to database.", e);
+			log.error("Reloading database.");
+			bot.reloadDB();
 		}
 	}
 
